@@ -1,0 +1,28 @@
+{
+  "name": "toggle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "handlebars": "^4.0.10",
+    "method-override": "^2.3.9",
+    "sequelize": "^4.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamRoseman/Toggle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SamRoseman/Toggle/issues"
+  },
+  "homepage": "https://github.com/SamRoseman/Toggle#readme"
+}

@@ -6,6 +6,7 @@ canvas.height = 852;
 document.body.appendChild(canvas);
 var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
 "T", "U", "V", "W", "X", "Y", "Z"];
+var letters = [];
 var i = 0;
 var randyCounter = 4;
 var bgReady = false;
@@ -132,13 +133,11 @@ var render = function () {
 	if (bgReady) {
 		ctx.drawImage(bgImage, 0, 0);
 	}
-
   for (var i = 0; i < letters.length; i++)
   {
       ctx.drawImage(letters[i].image, letters[i].x , letters[i].y);
   }
 }
-
 
 function loop() {
   randyFunk();
@@ -148,11 +147,12 @@ function loop() {
     }
 
     letter = new Letter();
+    letters.push(letter);
 
     letter.image.onload = function() {
         letterReady = true;
     };
-    letter.image.src = "assets/images/" + alphabet[letter.random] + ".jpg";
+    letter.image.src = "assets/images/" + alphabet[letter.random] + ".png";
     console.log(letter);
 }
 //MAIN PROCESS =================================

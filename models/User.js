@@ -5,6 +5,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
         len: [1]
       }
+    },
+  {
+    timestamps: false
+  });
+  User.associate = function(models)
+  {
+    User.hasMany(models.Score, {
+      onDelete: "cascade"
     });
-  return Post;
+  }
+  return User;
 };

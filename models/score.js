@@ -1,10 +1,25 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes)
+{
   var Score = sequelize.define("Score", {
-    name: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-        len: [1]
+    score: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    word: {
+      type: DataTypes.STRING
+    }
+
+  },
+{
+  timestamps: false
+});
+Score.associate = function(models)
+{
+    Score.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false
       }
     });
-  return Post;
+}
+  return Score;
 };

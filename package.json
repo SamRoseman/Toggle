@@ -8,6 +8,7 @@
     "express": "^4.15.4",
     "handlebars": "^4.0.10",
     "method-override": "^2.3.9",
+    "passport-facebook": "^2.1.1",
     "sequelize": "^4.8.0"
   },
   "devDependencies": {},

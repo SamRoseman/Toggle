@@ -4,28 +4,37 @@ var ctx = canvas.getContext("2d");
 canvas.width = 480;
 canvas.height = 852;
 document.body.appendChild(canvas);
-
+var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
+"T", "U", "V", "W", "X", "Y", "Z"];
+var i = 0;
 var bgReady = false;
-var letterAReady = false;
+var letterReady = false;
 var bgImage = new Image();
-var randy = Math.floor(Math.random()* 4);
 var xCor = [10, 130, 250, 370];
-var letterA = {
-    x: xCor[randy],
-    y: -100,
-    image: new Image()
+var Letter = function(){
+    this.randy = Math.floor(Math.random()* 4);
+    this.random = Math.floor(Math.random()* 26);
+    this.value = alphabet[this.random];
+    this.x = xCor[this.randy];
+    this.y = -100;
+    this.image = new Image();
+}
+var letter;
+
+var keysDownCurrent = {
+
 };
-var keysDown = {
-    37: 0,
-    39: 0
+
+var keysDownPrevious = {
+
 };
 
 addEventListener("keydown", function (e) {
-	keysDown[e.keyCode]++;
+	keysDownCurrent[e.keyCode] = true;
 });
 
 addEventListener("keyup", function(e) {
-    keysDown[e.keyCode] = 0;
+    keysDownCurrent[e.keyCode] = false;
 });
 //FUNCTIONS ====================================
 bgImage.onload = function() {
@@ -33,32 +42,37 @@ bgImage.onload = function() {
 };
 bgImage.src = "assets/images/bg.jpg";
 
-letterA.image.onload = function() {
-    letterAReady = true;
-};
-letterA.image.src = "assets/images/A.jpg";
+
 
 // The main game loop
 var main = function () {
-    var now = Date.now();
-    var delta = now - then;
+// var now = Date.now();
+// var delta = now - then;
 	render();
-    update(delta / 1000);
+// update(delta / 1000);
+    update();
 	// Request to do this again ASAP
 	requestAnimationFrame(main);
 };
 
-var update = function () {
-    if (letterA.y < 742) {
-        letterA.y += 1;
-        if (37 in keysDown && letterA.x > 10) {
-            letterA.x -= 1;
+var update = function() {
+    if (letter.y < 742) {
+        letter.y += 1;
+        if (keysDownCurrent[37] && !keysDownPrevious[37] && letter.x > 10) {
+            letter.x -= 120;
         }
 
-        if (39 in keysDown && letterA.x < 370) {
-            letterA.x += 1;
+        if (keysDownCurrent[39] && !keysDownPrevious[39] && letter.x < 370) {
+            letter.x += 120;
+        }
+        if(letter.y >= 742)
+        {
+            letterReady = false;
+            i++;
+            loop();
         }
     }
+    keysDownPrevious = Object.assign({}, keysDownCurrent);
 };
 
 // Draw everything
@@ -67,11 +81,25 @@ var render = function () {
 		ctx.drawImage(bgImage, 0, 0);
 	}
 
-    if (letterAReady) {
-        ctx.drawImage(letterA.image, letterA.x , letterA.y);
+    if (letterReady) {
+        ctx.drawImage(letter.image, letter.x , letter.y);
     }
 };
-//MAIN PROCESS =================================
-var then = Date.now();
 
+function loop() {
+    if(i === 16) {
+        return;
+    }
+
+    letter = new Letter();
+
+    letter.image.onload = function() {
+        letterReady = true;
+    };
+    letter.image.src = "assets/images/" + alphabet[letter.random] + ".jpg";
+    console.log(letter);
+}
+//MAIN PROCESS =================================
+// var then = Date.now();
+loop();
 main();

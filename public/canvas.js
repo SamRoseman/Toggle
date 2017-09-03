@@ -21,6 +21,7 @@ var Letter = function()
     this.x = xCor[randy];
     this.y = -100;
     this.image = new Image();
+    this.isStopped = false;
 }
 var letter;
 
@@ -49,14 +50,13 @@ bgImage.src = "assets/images/bg.jpg";
 function colFilled(col)
 {
     var counter = 0;
-    for (var i = 0; i < letters.length-1; i++)
+    for (var i = 0; i < letters.length; i++)
     {
-      if(letters[i].x === col)
+      if(letters[i].x === col && letters[i].isStopped === true)
       {
         counter++;
       }
     }
-    //console.log(counter);
     switch (counter)
     {
       case 0:
@@ -77,10 +77,10 @@ function colFilled(col)
     }
 }
 
+//elimanates full column from possible spawn point
 function randyFunk()
 {
-  randy = Math.floor(Math.random()*randyCounter);
-  if(randyCounter === 0)
+  if(randyCounter < 0)
   {
     return;
   }
@@ -90,10 +90,10 @@ function randyFunk()
     if(colFilled(xCor[i]) === 800)
     {
       xCor.splice(i,1);
-      console.log(i, xCor);
       randyCounter--;
     }
   }
+  randy = Math.floor(Math.random()*randyCounter);
 }
 
 // The main game loop
@@ -110,7 +110,8 @@ var main = function () {
 
 var update = function()
 {
-    if (letter.y < colFilled(letter.x)) {
+    if (letter.y < colFilled(letter.x) && !letter.isStopped)
+    {
         letter.y += 5;
         if (keysDownCurrent[37] && !keysDownPrevious[37] && letter.x > 10) {
             letter.x -= 120;
@@ -120,8 +121,12 @@ var update = function()
         }
         if(letter.y >= colFilled(letter.x))
         {
+          if(letters.length < 15)
+          {
             letterReady = false;
-            i++;
+          }
+            letter.isStopped = true;
+            randyFunk();
             loop();
         }
     }
@@ -135,17 +140,18 @@ var render = function () {
 	}
   for (var i = 0; i < letters.length; i++)
   {
+    if(letterReady) {
       ctx.drawImage(letters[i].image, letters[i].x , letters[i].y);
+    }
   }
 }
 
-function loop() {
-  randyFunk();
-  //need to figure out randyFunk...
-    if(i === 16) {
+function loop()
+{
+    if(i === 16)
+    {
         return;
     }
-
     letter = new Letter();
     letters.push(letter);
 
@@ -153,7 +159,7 @@ function loop() {
         letterReady = true;
     };
     letter.image.src = "assets/images/" + alphabet[letter.random] + ".png";
-    console.log(letter);
+    i++;
 }
 //MAIN PROCESS =================================
 // var then = Date.now();

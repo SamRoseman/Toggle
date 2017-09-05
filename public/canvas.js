@@ -72,9 +72,34 @@ function colFilled(col)
         return 412;
         break;
       case 4:
-        return 800;
+        return 300;
         break;
     }
+}
+
+//returns true if there is a letter that should block current letter.
+function collisionRight()
+{
+  if(colFilled(letter.x+120)+5 < letter.y)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+function collisionLeft()
+{
+  if(colFilled(letter.x-120)+5 < letter.y)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 //elimanates full column from possible spawn point
@@ -87,7 +112,7 @@ function randyFunk()
 
   for (var i = 0; i < xCor.length; i++)
   {
-    if(colFilled(xCor[i]) === 800)
+    if(colFilled(xCor[i]) === 300)
     {
       xCor.splice(i,1);
       randyCounter--;
@@ -113,10 +138,11 @@ var update = function()
     if (letter.y < colFilled(letter.x) && !letter.isStopped)
     {
         letter.y += 5;
-        if (keysDownCurrent[37] && !keysDownPrevious[37] && letter.x > 10) {
+
+        if (keysDownCurrent[37] && !keysDownPrevious[37] && letter.x > 10 && !collisionLeft()) {
             letter.x -= 120;
         }
-        if (keysDownCurrent[39] && !keysDownPrevious[39] && letter.x < 370) {
+        if (keysDownCurrent[39] && !keysDownPrevious[39] && letter.x < 370 && !collisionRight()) {
             letter.x += 120;
         }
         if(letter.y >= colFilled(letter.x))

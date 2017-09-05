@@ -60,14 +60,26 @@ router.get("/api/long", function(req, res)
   });
 });
 
-//route for creating new user some placeholders for now
-router.post("placeholder", function(req, res)
+//this route first looks for any users with matching fbId
+//if none are found then a new user is created.
+router.post("/api/user", function(req, res)
 {
-  db.User.create({
-    name: req.body.name
+  db.User.findAll({
+    where: {
+      fbId: req.body.id
+    }
   }).then(function(results)
   {
-    res.redirect("/");
+    if(results.length === 0)
+    {
+      db.User.create({
+        name: req.body.name,
+        fbId: req.body.id
+      }).then(function(results)
+      {
+        res.redirect("/");
+      });
+    }
   });
 });
 

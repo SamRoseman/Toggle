@@ -10,17 +10,17 @@ body {
 }
 
 @-webkit-keyframes backgroundexample {
-    0%   {background-image: url("scary.jpeg");background-size:cover;}
-    50%  {background-image: url("scary2.jpg");background-size:cover;}
-    100%  {background-image: url("scary3.jpg");background-size:cover;}
+    0%   {background-image: url("../images/scary.jpeg");background-size:cover;}
+    50%  {background-image: url("../images/scary2.jpg");background-size:cover;}
+    100%  {background-image: url("../images/scary3.jpg");background-size:cover;}
 }
 
 .container{
 	padding:35px;
 	border: 15px solid transparent;
-	 -webkit-border-image: url(jackolantern.jpg) 10 round; /* Safari 3.1-5 */
-    -o-border-image: url(jackolantern.jpg) 10 round; /* Opera 11-12.1 */
-    border-image: url(jackolantern.jpg) 10 round;
+	 -webkit-border-image: url(../images/jackolantern.jpg) 10 round; /* Safari 3.1-5 */
+    -o-border-image: url(../images/jackolantern.jpg) 10 round; /* Opera 11-12.1 */
+    border-image: url(../images/jackolantern.jpg) 10 round;
 }
 
 .page-header{
@@ -377,19 +377,18 @@ label{
 }
 
 .right{
+  margin-top:40%;
   width:50px;
   height:50px;
   float:right;
   margin-bottom:0px;
   -webkit-animation-name: rubberBand;
   animation-name: rubberBand;
-  -webkit-animation-duration: 1.5s;
-  animation-duration: 1.5s;
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-   animation-delay: 3s;
-     -webkit-animation-delay: 3s;
-    animation-iteration-count: 3;
+  animation-iteration-count: infinite;
   }
 
  
@@ -399,55 +398,21 @@ label{
   -webkit-transform: scale3d(1, 1, 1);
   transform: scale3d(1, 1, 1);
   }
-  30% {
-  -webkit-transform: scale3d(1.25, 0.75, 1);
-  transform: scale3d(1.25, 0.75, 1);
-  }
-  40% {
-  -webkit-transform: scale3d(0.75, 1.25, 1);
-  transform: scale3d(0.75, 1.25, 1);
-  }
-  50% {
-  -webkit-transform: scale3d(1.15, 0.85, 1);
-  transform: scale3d(1.15, 0.85, 1);
-  }
-  65% {
-  -webkit-transform: scale3d(.95, 1.05, 1);
-  transform: scale3d(.95, 1.05, 1);
-  }
-  75% {
-  -webkit-transform: scale3d(1.05, .95, 1);
-  transform: scale3d(1.05, .95, 1);
-  }
-  100% {
-  -webkit-transform: scale3d(1, 1, 1);
+  72%{
+-webkit-transform: scale3d(1, 1, 1);
   transform: scale3d(1, 1, 1);
   }
-  }
-  @keyframes rubberBand {
-  0% {
-  -webkit-transform: scale3d(1, 1, 1);
-  transform: scale3d(1, 1, 1);
-  }
-  30% {
+  79%{
   -webkit-transform: scale3d(1.25, 0.75, 1);
   transform: scale3d(1.25, 0.75, 1);
-  }
-  40% {
-  -webkit-transform: scale3d(0.75, 1.25, 1);
+  } 
+  86%{
+-webkit-transform: scale3d(0.75, 1.25, 1);
   transform: scale3d(0.75, 1.25, 1);
-  }
-  50% {
+  } 
+  93%{
   -webkit-transform: scale3d(1.15, 0.85, 1);
   transform: scale3d(1.15, 0.85, 1);
-  }
-  65% {
-  -webkit-transform: scale3d(.95, 1.05, 1);
-  transform: scale3d(.95, 1.05, 1);
-  }
-  75% {
-  -webkit-transform: scale3d(1.05, .95, 1);
-  transform: scale3d(1.05, .95, 1);
   }
   100% {
   -webkit-transform: scale3d(1, 1, 1);
@@ -455,3 +420,35 @@ label{
   }
   }
 
+  /*
+  @keyframes rubberBand {
+  0% {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  }
+  30% {
+   -webkit-transform: scale3d(1.25, 0.75, 1);
+  transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+  -webkit-transform: scale3d(0.75, 1.25, 1);
+  transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+ -webkit-transform: scale3d(1.15, 0.85, 1);
+  transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+-webkit-transform: scale3d(.95, 1.05, 1);
+  transform: scale3d(.95, 1.05, 1);
+ }
+  75% {
+  -webkit-transform: scale3d(1.05, .95, 1);
+  transform: scale3d(1.05, .95, 1);
+  }
+  100% {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  }
+  }
+*/

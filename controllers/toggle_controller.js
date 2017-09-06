@@ -64,31 +64,40 @@ router.get("/api/long", function(req, res)
 //if none are found then a new user is created.
 router.post("/api/user", function(req, res)
 {
+  console.log(req.body);
   db.User.findAll({
     where: {
-      fbId: req.body.id
+      fbId: req.body.fbId
     }
   }).then(function(results)
   {
-    if(results.length === 0)
+    console.log(results.length);
+   if(results.length === 0)
     {
       db.User.create({
         name: req.body.name,
-        fbId: req.body.id
+        fbId: req.body.fbId
       }).then(function(results)
       {
         res.redirect("/");
       });
     }
+    else
+    {
+      console.log("user already exists");
+      res.end();
+    }
   });
 });
 
 //route for adding new scores
-router.post("placeholder", function(req, res)
+router.post("/api/addScore", function(req, res)
 {
+  console.log(req.body);
   db.Score.create({
     score: req.body.score,
-    word: req.body.word
+    word: req.body.word,
+    UserId: req.body.UserId
   }).then(function(result)
   {
     res.redirect("/");

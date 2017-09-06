@@ -191,3 +191,20 @@ function loop()
 // var then = Date.now();
 loop();
 main();
+
+
+
+
+// dictionary api code.... Use when you need it.
+var Dictionary = require("oxford-dictionary-api");
+var app_id = "106d1fc7";
+var app_key = "703b3bcb4b34e247d483d8df00a4c064";
+var dict = new Dictionary(app_id,app_key);
+//this will log the part of speech the word is.
+//if just a letter it is called "Residual"
+//if it does not exist "No such entry found"
+dict.find("ajaksdfhlkahsdfl",function(error,data)
+{
+  if(error) return console.log(error);
+  console.log(data.results[0].lexicalEntries[0].lexicalCategory);
+});

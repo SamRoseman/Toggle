@@ -67,7 +67,8 @@ router.get("/api/long", function(req, res)
 
 //this route first looks for any users with matching fbId
 //if none are found then a new user is created.
-router.post("/api/user", function(req, res)
+//this route is for creating users through fb.
+router.post("/api/userFb", function(req, res)
 {
   console.log(req.body);
   db.User.findAll({

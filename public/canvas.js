@@ -246,6 +246,8 @@ canvas.addEventListener("mouseup", function() {
     mouseDown = false;
     getWord();
     console.log(mouseDown);
+});
+
 
 
 

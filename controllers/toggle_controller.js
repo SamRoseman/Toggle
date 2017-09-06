@@ -6,6 +6,11 @@ var db = require("../models/");
 
 var sequelize = require("sequelize");
 
+var Dictionary = require("oxford-dictionary-api");
+var app_id = "106d1fc7";
+var app_key = "703b3bcb4b34e247d483d8df00a4c064";
+var dict = new Dictionary(app_id,app_key);
+
 //for now most of the controllers will have placeholder names until the models exist.
 
 //this route is to retrieve all user scores
@@ -103,7 +108,13 @@ router.post("/api/addScore", function(req, res)
     res.redirect("/");
   });
 }); //need to ask about adding to one table while keeping track of the foreign key.
-
+router.get("/api/checkWord/:word", function(req, res)
+{
+  dict.find(req.params.word, function(error,data)
+  {
+    res.send(data.results[0].lexicalEntries[0].lexicalCategory);
+  });
+});
 //delete route if we decide to let a user delete themselves
 router.delete("/:id", function(req, res)
 {

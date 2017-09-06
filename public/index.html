@@ -1,18 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/styleWelcome.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
-    <title>Toggle</title>
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaijaan" rel="stylesheet">
+	<title>Toggle Game!</title>
 </head>
-    <body>
-      <!-- temp link until we restructure html pages. -->
-    <a href="/loginTest.html">login</a>
-    <script src="canvas.js"></script>
-    </body>
+<body>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<h1 class="top">It's Tetris!</h1>
+</div>
+
+<div class="col-md-12">
+<h1 class="middle">It's Boggle!</h1>
+</div>
+
+<div class="col-md-12 nit">
+<h1 class="bottom">No its Toggle!</h1>
+</div>
+</div>
+
+
+
+<div class="row">
+<div class="col-md-1">
+</div>
+
+<div class="col-md-4 usersignin">
+<form>
+	<div class="form-group">
+	<label for="firstname">Firstname:</label>
+	<input type="name" class="form-control" id="userfname" placeholder="Firstname">
+	</div>
+	<div class="form-group">
+	<label for="lastname">Lastname:</label>
+	<input type="name" class="form-control" id="userlname" placeholder="Lastname">
+	</div>
+	<div class="form-group">
+	<label for="userName">UserName:</label>
+	<input type="name" class="form-control" id="uname" placeholder="Username">
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+
+<div class="col-md-2">
+<h3 class="signup"><--  Sign up & play  --></h3>
+</div>
+
+<div class="col-md-4 fbsignin">
+<form>
+	<div class="form-group">
+	<label for="firstname">FaceBook Login:</label>
+	<input type="name" class="form-control" id="fname" placeholder="Firstname">
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+
+<div class="col-md-1 green">
+</div>
+
+</div>
+
+<div class="row">
+<div class="col-md-2">
+<img src="assets/images/pk_burned.png" class="left">
+</div>
+
+<div class="col-md-8">
+<audio controls loop autoplay>
+  <source src="headless.mp3" type="audio/mp3">
+</audio>
+</div>
+
+<div class="col-md-2">
+<img src="assets/images/pk_burned.png" class="right">
+</div>
+</div>
+</div>
+
+<script src="jsfile.js"></script>
+</body>
 </html>

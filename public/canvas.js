@@ -7,6 +7,7 @@ document.body.appendChild(canvas);
 var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
 "T", "U", "V", "W", "X", "Y", "Z"];
 var letters = [];
+var word = [];
 var i = 0;
 var randyCounter = 4;
 var bgReady = false;
@@ -14,6 +15,10 @@ var letterReady = false;
 var bgImage = new Image();
 var xCor = [10, 130, 250, 370];
 var randy = 2;
+var mouseDown = false;
+    console.log(mouseDown);
+var mousePosX;
+var mousePosY;
 var Letter = function()
 {
     this.random = Math.floor(Math.random()* 26);
@@ -22,6 +27,7 @@ var Letter = function()
     this.y = -100;
     this.image = new Image();
     this.isStopped = false;
+
 }
 var letter;
 
@@ -137,7 +143,7 @@ var update = function()
 {
     if (letter.y < colFilled(letter.x) && !letter.isStopped)
     {
-        letter.y += 5;
+        letter.y += 20;
 
         if (keysDownCurrent[37] && !keysDownPrevious[37] && letter.x > 10 && !collisionLeft()) {
             letter.x -= 120;
@@ -174,8 +180,8 @@ var render = function () {
 
 function loop()
 {
-    if(i === 16)
-    {
+    if(i === 16) {
+        console.log(letters);
         return;
     }
     letter = new Letter();
@@ -187,7 +193,56 @@ function loop()
     letter.image.src = "assets/images/" + alphabet[letter.random] + ".png";
     i++;
 }
+
+function getMousePos(canvas, evt) {
+  var rect = canvas.getBoundingClientRect();
+  return {
+    x: evt.clientX - rect.left,
+    y: evt.clientY - rect.top
+  };
+}
+
+function getLetter() {
+    for (var i = 0; i < letters.length; i++) {
+        if (mousePosX >= letters[i].x + 5 && mousePosX <= letters[i].x + 95 && mousePosY >= letters[i].y + 5 && mousePosY <= letters[i].y + 95) {
+            if (word[word.length -1] !== letters[i].value){
+                word.push(letters[i].value);
+            }
+        }
+    }
+}
+
+function getWord() {
+    console.log(word);
+    var wordString = word.toString().replace(/,/g, "").toLowerCase();
+    console.log(wordString);
+    word = [];
+}
+
 //MAIN PROCESS =================================
 // var then = Date.now();
 loop();
 main();
+
+
+canvas.addEventListener('mousemove', function(evt) {
+    if (mouseDown) {
+        var mousePos = getMousePos(canvas, evt);
+        mousePosX = mousePos.x;
+        mousePosY = mousePos.y;
+        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+        getLetter();
+    }
+}, false);
+
+
+canvas.addEventListener("mousedown", function() {
+    mouseDown = true;
+    console.log(mouseDown);
+});
+
+canvas.addEventListener("mouseup", function() {
+    mouseDown = false;
+    getWord();
+    console.log(mouseDown);
+});

@@ -3,7 +3,11 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-        len: [1]
+    },
+    
+    fbId: {
+        type: DataTypes.STRING,
+        allowNull: false
       }
     },
   {

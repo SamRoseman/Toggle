@@ -8,6 +8,7 @@ var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
 "T", "U", "V", "W", "X", "Y", "Z"];
 var letters = [];
 var word = [];
+var allWords = [];
 var i = 0;
 var randyCounter = 4;
 var bgReady = false;
@@ -217,14 +218,15 @@ function getWord() {
     var wordString = word.toString().replace(/,/g, "").toLowerCase();
     console.log(wordString);
     word = [];
+    $.get("/api/checkword/" + word).done(function(data){
+        console.log(data);
+    })
 }
 
 //MAIN PROCESS =================================
 // var then = Date.now();
 loop();
 main();
-
-
 
 canvas.addEventListener('mousemove', function(evt) {
     if (mouseDown) {

@@ -380,32 +380,27 @@ label{
   margin-bottom:0px;
   -webkit-animation-name: swing;
   animation-name: swing;
-  -webkit-animation-duration: 5s;
-  animation-duration: 5s;
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   animation-iteration-count: infinite;
   }
 
   @-webkit-keyframes swing {
-  20% {
-  -webkit-transform: rotate3d(0, 0, 1, 15deg);
-  transform: rotate3d(0, 0, 1, 15deg);
-  }
-  40% {
- 
-  }
-  60% {
- 
-  }
-  80% {
-    
+  0% {
+  -webkit-transform: rotate3d(0, 0, 1, 0deg);
+  transform: rotate3d(0, 0, 1, 0deg);
 }
-85%{
+75%{
+  -webkit-transform: rotate3d(0, 0, 1, 0deg);
+  transform: rotate3d(0, 0, 1, 0deg);
+}
+80%{
    -webkit-transform: rotate3d(0, 0, 1, -10deg);
   transform: rotate3d(0, 0, 1, -10deg);
 }
-90%{
+85%{
    -webkit-transform: rotate3d(0, 0, 1, 5deg);
   transform: rotate3d(0, 0, 1, 5deg);
 }

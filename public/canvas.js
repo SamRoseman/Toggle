@@ -307,11 +307,17 @@ function decrement() {
         };
         $.post("/api/addScore", scores).done(function(data)
         {
-          //maybe do something here.
+          //to update leaderboard with new score
+          $.get("/api/highScore", function(data)
+          {
+            for (var i = 0; i < data.length; i++)
+            {
+              console.log(data[i].User.name);
+              console.log(data[i].score);
+            }
+          });
         });
     }
-
-
 }
 //MAIN PROCESS =================================
 loop();

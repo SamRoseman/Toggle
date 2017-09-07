@@ -48,10 +48,12 @@ addEventListener("keyup", function(e) {
     keysDownCurrent[e.keyCode] = false;
 });
 //FUNCTIONS ====================================
+
 bgImage.onload = function() {
     bgReady = true;
 };
-bgImage.src = "assets/images/bg.jpg";
+bgImage.src = "assets/images/smoke.jpg";
+
 
 //looks for stacking
 function colFilled(col)

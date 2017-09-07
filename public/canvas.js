@@ -9,6 +9,7 @@ var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
 var letters = [];
 var word = [];
 var allWords = [];
+var longWord;
 var i = 0;
 var randyCounter = 4;
 var bgReady = false;
@@ -257,6 +258,18 @@ function getWord() {
     });
 }
 
+function findLong()
+{
+  longWord = allWords[0];
+  for (var i = 1; i < allWords.length; i++)
+  {
+    if(allWords[i].length > longWord.length)
+    {
+      longWord = allWords[i];
+    }
+  }
+}
+
 function decrement() {
     number--;
     $("#timer").html("<p>Time Remaining: " + number + "</p>");
@@ -264,8 +277,18 @@ function decrement() {
 
     if (number === 0) {
         clearInterval(intervalId);
+        findLong();
         $("#timer").html("<p>Time's Up!</p>");
         $(canvas).hide();
+        var scores = {
+          score: score,
+          word: longWord,
+          userId: userId //gotta add this in local storage.
+        };
+        $.post("/api/addScore", scores).done(function(data)
+        {
+          //maybe do something here.
+        });
     }
 
 

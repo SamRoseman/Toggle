@@ -10,7 +10,7 @@ $("#userSubmit").click(function(event)
 
   $.post("api/addUser", user).done(function(data)
   {
-    console.log(data);
+    window.location.href+="game.html";
   });
 });
 

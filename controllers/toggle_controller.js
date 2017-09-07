@@ -122,7 +122,7 @@ router.post("/api/addUser", function(req, res)
         fbId: numId
   }).then(function(results)
   {
-    res.redirect("/game");
+    res.send();
   });
 });
 
@@ -159,17 +159,6 @@ router.delete("/:id", function(req, res)
   {
     res.redirect("/");
   });
-});
-
-//html routes
-router.get("/", function(req, res)
-{
-  res.sendFile(path.join(__dirname, "../public/index.html"));
-});
-
-router.get("/game", function(req, res)
-{
-  res.sendFile(path.join(__dirname, "../public/game.html"));
 });
 
 module.exports = router;

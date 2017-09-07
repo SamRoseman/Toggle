@@ -6,11 +6,28 @@ var db = require("../models/");
 
 var sequelize = require("sequelize");
 
+var path = require("path");
+
 var Dictionary = require("oxford-dictionary-api");
 var app_id = "106d1fc7";
 var app_key = "703b3bcb4b34e247d483d8df00a4c064";
 var dict = new Dictionary(app_id,app_key);
 
+function makeId()
+{
+  var id = Math.floor(Math.random()*10).toString()
+  + Math.floor(Math.random()*10).toString()
+  + Math.floor(Math.random()*10).toString()
+  + Math.floor(Math.random()*10).toString()
+  + Math.floor(Math.random()*10).toString()
+  + Math.floor(Math.random()*10).toString()
+  + Math.floor(Math.random()*10).toString()
+  + Math.floor(Math.random()*10).toString()
+  + Math.floor(Math.random()*10).toString()
+  + Math.floor(Math.random()*10).toString();
+  console.log(id);
+  return parseInt(id);
+}
 //for now most of the controllers will have placeholder names until the models exist.
 
 //this route is to retrieve all user scores
@@ -68,7 +85,7 @@ router.get("/api/long", function(req, res)
 //this route first looks for any users with matching fbId
 //if none are found then a new user is created.
 //this route is for creating users through fb.
-router.post("/api/userFb", function(req, res)
+router.post("/api/addUserFb", function(req, res)
 {
   console.log(req.body);
   db.User.findAll({
@@ -96,6 +113,19 @@ router.post("/api/userFb", function(req, res)
   });
 });
 
+//adds non fb users
+router.post("/api/addUser", function(req, res)
+{
+  var numId = makeId();
+  db.User.create({
+        name: req.body.name,
+        fbId: numId
+  }).then(function(results)
+  {
+    res.redirect("/game");
+  });
+});
+
 //route for adding new scores
 router.post("/api/addScore", function(req, res)
 {
@@ -108,7 +138,8 @@ router.post("/api/addScore", function(req, res)
   {
     res.redirect("/");
   });
-}); //need to ask about adding to one table while keeping track of the foreign key.
+});
+
 router.get("/api/checkWord/:word", function(req, res)
 {
   dict.find(req.params.word, function(error,data)
@@ -128,6 +159,17 @@ router.delete("/:id", function(req, res)
   {
     res.redirect("/");
   });
+});
+
+//html routes
+router.get("/", function(req, res)
+{
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
+router.get("/game", function(req, res)
+{
+  res.sendFile(path.join(__dirname, "../public/game.html"));
 });
 
 module.exports = router;

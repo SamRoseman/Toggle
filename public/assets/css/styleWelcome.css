@@ -1,21 +1,12 @@
 
 body {
   font-family: "Baloo Bhaijaan", cursive;
-    -webkit-animation-name: backgroundexample; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 40s; /* Safari 4.0 - 8.0 */
-    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
-    animation-name: backgroundexample;
-    animation-duration: 40s;
-    animation-iteration-count: infinite;
+   background-image: url("../images/cemetary.jpg");
 }
 
-@-webkit-keyframes backgroundexample {
-    0%   {background-image: url("../images/scary.jpeg");background-size:cover;}
-    50%  {background-image: url("../images/scary2.jpg");background-size:cover;}
-    100%  {background-image: url("../images/scary3.jpg");background-size:cover;}
-}
 
-.container{
+.container-fluid{
+  margin-top:1%;
 	padding:35px;
 	border: 15px solid transparent;
 	 -webkit-border-image: url(../images/jackolantern.jpg) 10 round; /* Safari 3.1-5 */
@@ -368,16 +359,16 @@ label{
   }
   } 
 
-.green{
-	background-color:green;
-}
 
 .left{
   float:left;
-   margin-top:40%;
+   margin-top:90%;
   width:50px;
   height:50px;
   margin-bottom:0px;
+  -webkit-transform-origin: top center;
+  -ms-transform-origin: top center;
+  transform-origin: top center;
   -webkit-animation-name: swing;
   animation-name: swing;
   -webkit-animation-duration: 4s;
@@ -405,8 +396,8 @@ label{
   transform: rotate3d(0, 0, 1, 5deg);
 }
 95%{
-   -webkit-transform: rotate3d(0, 0, 1, 15deg);
-  transform: rotate3d(0, 0, 1, 15deg);
+   -webkit-transform: rotate3d(0, 0, 1, -5deg);
+  transform: rotate3d(0, 0, 1, -5deg);
 }
   100% {
   -webkit-transform: rotate3d(0, 0, 1, 0deg);
@@ -415,8 +406,13 @@ label{
   }
 
 
+audio{
+  display:none;
+}
+
+
 .right{
-  margin-top:40%;
+  margin-top:90%;
   width:50px;
   height:50px;
   float:right;

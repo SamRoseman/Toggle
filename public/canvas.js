@@ -3,7 +3,8 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 480;
 canvas.height = 852;
-document.body.appendChild(canvas);
+var centerDiv = $("#center");
+centerDiv.append(canvas);
 var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
 "T", "U", "V", "W", "X", "Y", "Z"];
 var letters = [];
@@ -33,14 +34,8 @@ var Letter = function()
 
 }
 var letter;
-
-var keysDownCurrent = {
-
-};
-
-var keysDownPrevious = {
-
-};
+var keysDownCurrent = {};
+var keysDownPrevious = {};
 
 addEventListener("keydown", function (e) {
 	keysDownCurrent[e.keyCode] = true;
@@ -50,14 +45,15 @@ addEventListener("keyup", function(e) {
     keysDownCurrent[e.keyCode] = false;
 });
 //FUNCTIONS ====================================
+
 bgImage.onload = function() {
     bgReady = true;
 };
-bgImage.src = "assets/images/bg.jpg";
+bgImage.src = "assets/images/smoke.jpg";
+
 
 //looks for stacking
-function colFilled(col)
-{
+function colFilled(col) {
     var counter = 0;
     for (var i = 0; i < letters.length; i++)
     {
@@ -87,8 +83,7 @@ function colFilled(col)
 }
 
 //returns true if there is a letter that should block current letter.
-function collisionRight()
-{
+function collisionRight() {
   if(colFilled(letter.x+120)+5 < letter.y)
   {
     return true;
@@ -99,8 +94,8 @@ function collisionRight()
   }
 }
 
-function collisionLeft()
-{
+//returns true if there is a letter that should block current letter.
+function collisionLeft() {
   if(colFilled(letter.x-120)+5 < letter.y)
   {
     return true;
@@ -112,8 +107,7 @@ function collisionLeft()
 }
 
 //elimanates full column from possible spawn point
-function randyFunk()
-{
+function randyFunk() {
   if(randyCounter < 0)
   {
     return;
@@ -130,20 +124,15 @@ function randyFunk()
   randy = Math.floor(Math.random()*randyCounter);
 }
 
-// The main game loop
+//the main game loop
 var main = function () {
-
-// var now = Date.now();
-// var delta = now - then;
 	render();
-// update(delta / 1000);
     update();
-	// Request to do this again ASAP
 	requestAnimationFrame(main);
 };
 
-var update = function()
-{
+//controls tetris style movement of letter blocks as they fall
+var update = function() {
     if (letter.y < colFilled(letter.x) && !letter.isStopped)
     {
         letter.y += 10;
@@ -168,7 +157,7 @@ var update = function()
     keysDownPrevious = Object.assign({}, keysDownCurrent);
 };
 
-// Draw everything
+//draw everything
 var render = function () {
 	if (bgReady) {
 		ctx.drawImage(bgImage, 0, 0);
@@ -181,8 +170,8 @@ var render = function () {
   }
 }
 
-function loop()
-{
+//drops letters until boggle board is full
+function loop() {
     if(i === 16) {
         $("#timer").html("<p>Time Remaining: 90</p>");
         $("#score").html("<p>Score: 0</p>");
@@ -200,6 +189,7 @@ function loop()
     i++;
 }
 
+//gets the position of the mouse within the canvas
 function getMousePos(canvas, evt) {
   var rect = canvas.getBoundingClientRect();
   return {
@@ -208,6 +198,7 @@ function getMousePos(canvas, evt) {
   };
 }
 
+//gets the letters that the user selects for the current word
 function getLetter() {
     for (var i = 0; i < letters.length; i++) {
         if (mousePosX >= letters[i].x + 5 && mousePosX <= letters[i].x + 95 && mousePosY >= letters[i].y + 5 && mousePosY <= letters[i].y + 95) {
@@ -218,45 +209,71 @@ function getLetter() {
     }
 }
 
+//compiles letters into a word
 function getWord() {
-    console.log(word);
     var wordString = word.toString().replace(/,/g, "").toLowerCase();
-    console.log(wordString);
     word = [];
-    $.get("/api/checkWord/" + wordString, function(data) {
-        //console.log(data);
+    if (allWords.indexOf(wordString) === -1) {
+        allWords.push(wordString);
 
-        if (data === "No such entry found" || data === "Residual") {
-            console.log("not a word");
-            return;
-        }
-        else {
-            var length = wordString.length;
-            switch(length) {
-                case 2:
-                    score += 10;
-                    console.log(score);
-                    break;
-                case 3:
-                    score += 25;
-                    console.log(score);
-                    break;
-                case 4:
-                    score += 100;
-                    console.log(score);
-                    break;
-                case 5:
-                    score += 150;
-                    console.log(score);
-                    break;
-                case 6:
-                    score += 200;
-                    console.log(score);
-                    break;
+        $.get("/api/checkWord/" + wordString, function(data) {
+            if (data === "No such entry found" || data === "Residual") {
+                return;
             }
-        }
-    });
+            else {
+                var length = wordString.length;
+                switch(length) {
+                    case 2:
+                        score += 10;
+                        break;
+                    case 3:
+                        score += 25;
+                        break;
+                    case 4:
+                        score += 100;
+                        break;
+                    case 5:
+                        score += 150;
+                        break;
+                    case 6:
+                        score += 200;
+                        break;
+                    case 7:
+                        score += 250;
+                        break;
+                    case 8:
+                        score += 300;
+                        break;
+                    case 9:
+                        score += 375;
+                        break;
+                    case 10:
+                        score += 450;
+                        break;
+                    case 11:
+                        score += 550;
+                        break;
+                    case 12:
+                        score += 650;
+                        break;
+                    case 13:
+                        score += 800;
+                        break;
+                    case 14:
+                        score += 900;
+                        break;
+                    case 15:
+                        score += 1000;
+                        break;
+                    case 16:
+                        score += 2000;
+                        break;
+                }
+            }
+        });
+    }
 }
+
 
 function findLong()
 {
@@ -269,6 +286,9 @@ function findLong()
     }
   }
 }
+
+
+//controlls the timer for the boggle portion of the game
 
 function decrement() {
     number--;
@@ -293,31 +313,24 @@ function decrement() {
 
 
 }
-
-
 //MAIN PROCESS =================================
-// var then = Date.now();
 loop();
 main();
 
-canvas.addEventListener('mousemove', function(evt) {
+canvas.addEventListener("mousemove", function(evt) {
     if (mouseDown) {
         var mousePos = getMousePos(canvas, evt);
         mousePosX = mousePos.x;
         mousePosY = mousePos.y;
-        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
         getLetter();
     }
 }, false);
 
-
 canvas.addEventListener("mousedown", function() {
     mouseDown = true;
-    // console.log(mouseDown);
 });
 
 canvas.addEventListener("mouseup", function() {
     mouseDown = false;
     getWord();
-    // console.log(mouseDown);
 });

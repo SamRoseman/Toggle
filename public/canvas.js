@@ -212,6 +212,7 @@ function getLetter() {
 //compiles letters into a word
 function getWord() {
     var wordString = word.toString().replace(/,/g, "").toLowerCase();
+console.log(wordString);
     word = [];
     if (allWords.indexOf(wordString) === -1) {
         allWords.push(wordString);

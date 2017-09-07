@@ -7,7 +7,6 @@ $.get("/api/highScore", function(data)
     console.log(data[i].User.name);
     console.log(data[i].score);
   }
-  //$("#leaderboard").append("<h3>"+ data[i].name+"<h3>");
 });
 
 

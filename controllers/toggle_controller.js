@@ -65,7 +65,7 @@ router.get("/api/highScore", function(req, res)
     limit: 10
   }).then(function(results)
   {
-    res.json(results);
+    console.log(results);
   });
 });
 
@@ -129,14 +129,13 @@ router.post("/api/addUser", function(req, res)
 //route for adding new scores
 router.post("/api/addScore", function(req, res)
 {
-  console.log(req.body);
   db.Score.create({
     score: req.body.score,
     word: req.body.word,
-    UserId: req.body.UserId
+    UserId: req.body.userId
   }).then(function(result)
   {
-    res.redirect("/");
+    res.send();
   });
 });
 

@@ -99,7 +99,7 @@ router.post("/api/addUserFb", function(req, res)
     {
       db.User.create({
         name: req.body.name,
-        fbId: req.body.fbId
+        fbId: req.body.id
       }).then(function(results)
       {
         res.redirect("/");
@@ -122,7 +122,7 @@ router.post("/api/addUser", function(req, res)
         fbId: numId
   }).then(function(results)
   {
-    res.redirect("/game");
+    res.send(results);
   });
 });
 
@@ -159,17 +159,6 @@ router.delete("/:id", function(req, res)
   {
     res.redirect("/");
   });
-});
-
-//html routes
-router.get("/", function(req, res)
-{
-  res.sendFile(path.join(__dirname, "../public/index.html"));
-});
-
-router.get("/game", function(req, res)
-{
-  res.sendFile(path.join(__dirname, "../public/game.html"));
 });
 
 module.exports = router;

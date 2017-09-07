@@ -9,6 +9,7 @@ canvas {
 margin-left:10%;
 border:2px solid orange;
 border-radius:1%;
+
 }
 
 #left{
@@ -53,6 +54,7 @@ span {
 	font-family:"Arial";
 	font-size:25px;
 	color:#f94909;
+
 	font-weight:bold;
 }
 

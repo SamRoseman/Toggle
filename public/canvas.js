@@ -10,6 +10,7 @@ var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
 var letters = [];
 var word = [];
 var allWords = [];
+var longWord;
 var i = 0;
 var randyCounter = 4;
 var bgReady = false;
@@ -211,6 +212,7 @@ function getLetter() {
 //compiles letters into a word
 function getWord() {
     var wordString = word.toString().replace(/,/g, "").toLowerCase();
+console.log(wordString);
     word = [];
     if (allWords.indexOf(wordString) === -1) {
         allWords.push(wordString);
@@ -273,7 +275,22 @@ function getWord() {
     }
 }
 
+
+function findLong()
+{
+  longWord = allWords[0];
+  for (var i = 1; i < allWords.length; i++)
+  {
+    if(allWords[i].length > longWord.length)
+    {
+      longWord = allWords[i];
+    }
+  }
+}
+
+
 //controlls the timer for the boggle portion of the game
+
 function decrement() {
     number--;
     $("#timer").html("<p>Time Remaining: " + number + "</p>");
@@ -281,11 +298,27 @@ function decrement() {
 
     if (number === 0) {
         clearInterval(intervalId);
+        findLong();
         $("#timer").html("<p>Time's Up!</p>");
         $(canvas).hide();
+        var scores = {
+          score: score,
+          word: longWord,
+          userId: userId //gotta add this in local storage.
+        };
+        $.post("/api/addScore", scores).done(function(data)
+        {
+          //to update leaderboard with new score
+          $.get("/api/highScore", function(data)
+          {
+            for (var i = 0; i < data.length; i++)
+            {
+              console.log(data[i].User.name);
+              console.log(data[i].score);
+            }
+          });
+        });
     }
-
-
 }
 //MAIN PROCESS =================================
 loop();

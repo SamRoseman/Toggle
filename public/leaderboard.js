@@ -1,3 +1,5 @@
+//basic routes we need to use to display leaderboard stuff...
+
 $.get("/api/highScore", function(data)
 {
   for (var i = 0; i < data.length; i++)
@@ -15,5 +17,5 @@ $.get("/api/long", function(data)
   {
     console.log(data[i].User.name);
     console.log(data[i].word);
-  }  
+  }
 });

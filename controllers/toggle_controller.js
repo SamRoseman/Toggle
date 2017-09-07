@@ -113,6 +113,7 @@ router.get("/api/checkWord/:word", function(req, res)
 {
   dict.find(req.params.word, function(error,data)
   {
+    if (error) return res.send(error);
     res.send(data.results[0].lexicalEntries[0].lexicalCategory);
   });
 });

@@ -1,22 +1,25 @@
 body{
 	background-image:url("../images/cemetary.jpg");
 	background-size:cover;
+	background-repeat: no-repeat;
+	font-family:"Sans Serif";
 }
 
 canvas {
 margin-left:10%;
 border:2px solid orange;
 border-radius:1%;
-height:550px;
-width:;
 }
 
 #left{
-	border: 1px solid black;
+	background-color:black;
+	border-radius:5%;
+	border:1px solid orange;
+	position:fixed;
 }
 
 #center{
-	border: 1px solid black;
+	margin-left:15%;
 }
 
 #right{
@@ -27,12 +30,36 @@ width:;
 	background-color:black;
 	border-radius:5%;
 	border:1px solid orange;
-	position:fixed;
-	width:30%;
+	margin-bottom:3em;
+	margin-top:1em;
+}
+
+.bolder{
+	background-color:black;
+	border-radius:5%;
+	border:1px solid orange;
+	margin-bottom:1em;
+}
+
+h2{
+	border-bottom:2px solid orange;
+	font-family:"Arial";
+	font-size:25px;
+	color:orange;
+	font-weight: bold;
 }
 
 span {
-	font-family: "Baloo Bhaijaan", cursive;
+	font-family:"Arial";
 	font-size:25px;
 	color:#f94909;
+	font-weight:bold;
+}
+
+#timer{
+	color:white;
+}
+
+#score{
+	color:white;
 }

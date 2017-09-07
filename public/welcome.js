@@ -10,6 +10,7 @@ $("#submit-btn").click(function(event)
   $.post("api/addUser", user).done(function(data)
   {
     currentKey = data.fbId;
+    sessionStorage.setItem("key", currentKey);
     window.location.href+="game.html";
   });
 });
@@ -96,6 +97,7 @@ function testAPI() {
     {
       window.location.href+="game.html";
       currentKey = response.id;
+      sessionStorage.setItem("key", currentKey);
     });
   });
 }

@@ -4,10 +4,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    
+
     fbId: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
       }
     },
   {
@@ -15,9 +16,9 @@ module.exports = function(sequelize, DataTypes) {
   });
   User.associate = function(models)
   {
-    User.hasMany(models.Score, {
-      onDelete: "cascade"
-    });
+    // User.hasMany(models.Score, {
+    //   onDelete: "cascade"
+    // });
   }
   return User;
 };

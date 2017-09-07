@@ -15,10 +15,8 @@ module.exports = function(sequelize, DataTypes)
 });
 Score.associate = function(models)
 {
-    Score.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      }
+    Score.belongsTo(models.User,
+      {foreignKey: "UserId", targetKey: "fbId"
     });
 }
   return Score;

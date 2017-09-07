@@ -22,7 +22,7 @@ var mouseDown = false;
 var mousePosX;
 var mousePosY;
 var score = 0;
-var number = 90;
+var number = 10;
 var Letter = function()
 {
     this.random = Math.floor(Math.random()* 26);
@@ -297,15 +297,19 @@ function decrement() {
     $("#score").html("<p>Score: " + score + "</p>");
 
     if (number === 0) {
+      var userId = sessionStorage.getItem("key");
         clearInterval(intervalId);
         findLong();
         $("#timer").html("<p>Time's Up!</p>");
         $(canvas).hide();
+
         var scores = {
           score: score,
           word: longWord,
-          userId: userId //gotta add this in local storage.
+          userId: userId
         };
+
+        console.log(scores);
         $.post("/api/addScore", scores).done(function(data)
         {
           //to update leaderboard with new score
@@ -315,6 +319,17 @@ function decrement() {
             {
               console.log(data[i].User.name);
               console.log(data[i].score);
+            }
+          });
+
+          //updates leaderboard with new long words.
+          $.get("/api/long", function(data)
+          {
+            console.log(data);
+            for (var i = 0; i < data.length; i++)
+            {
+              console.log(data[i].User.name);
+              console.log(data[i].word);
             }
           });
         });

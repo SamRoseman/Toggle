@@ -20,7 +20,7 @@ var mouseDown = false;
 var mousePosX;
 var mousePosY;
 var score = 0;
-var number = 10;
+var number = 90;
 var Letter = function()
 {
     this.random = Math.floor(Math.random()* 26);
@@ -184,6 +184,7 @@ function loop()
 {
     if(i === 16) {
         $("#timer").html("<p>Time Remaining: 90</p>");
+        $("#score").html("<p>Score: 0</p>");
         intervalId = setInterval(decrement, 1000);
         //console.log(letters);
         return;
@@ -259,6 +260,7 @@ function getWord() {
 function decrement() {
     number--;
     $("#timer").html("<p>Time Remaining: " + number + "</p>");
+    $("#score").html("<p>Score: " + score + "</p>");
 
     if (number === 0) {
         clearInterval(intervalId);

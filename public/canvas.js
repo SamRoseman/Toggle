@@ -3,7 +3,8 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 480;
 canvas.height = 852;
-document.body.appendChild(canvas);
+var centerDiv = $("#center");
+centerDiv.append(canvas);
 var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
 "T", "U", "V", "W", "X", "Y", "Z"];
 var letters = [];

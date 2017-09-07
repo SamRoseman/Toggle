@@ -99,7 +99,7 @@ router.post("/api/addUserFb", function(req, res)
     {
       db.User.create({
         name: req.body.name,
-        fbId: req.body.fbId
+        fbId: req.body.id
       }).then(function(results)
       {
         res.redirect("/");
@@ -122,7 +122,7 @@ router.post("/api/addUser", function(req, res)
         fbId: numId
   }).then(function(results)
   {
-    res.send();
+    res.send(results);
   });
 });
 

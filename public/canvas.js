@@ -17,9 +17,10 @@ var bgImage = new Image();
 var xCor = [10, 130, 250, 370];
 var randy = 2;
 var mouseDown = false;
-    console.log(mouseDown);
 var mousePosX;
 var mousePosY;
+var score = 0;
+var number = 10;
 var Letter = function()
 {
     this.random = Math.floor(Math.random()* 26);
@@ -144,7 +145,7 @@ var update = function()
 {
     if (letter.y < colFilled(letter.x) && !letter.isStopped)
     {
-        letter.y += 5;
+        letter.y += 10;
 
         if (keysDownCurrent[37] && !keysDownPrevious[37] && letter.x > 10 && !collisionLeft()) {
             letter.x -= 120;
@@ -182,7 +183,9 @@ var render = function () {
 function loop()
 {
     if(i === 16) {
-        console.log(letters);
+        $("#timer").html("<p>Time Remaining: 90</p>");
+        intervalId = setInterval(decrement, 1000);
+        //console.log(letters);
         return;
     }
     letter = new Letter();
@@ -218,10 +221,54 @@ function getWord() {
     var wordString = word.toString().replace(/,/g, "").toLowerCase();
     console.log(wordString);
     word = [];
-    $.get("/api/checkword/" + word).done(function(data){
-        console.log(data);
-    })
+    $.get("/api/checkWord/" + wordString, function(data) {
+        //console.log(data);
+
+        if (data === "No such entry found" || data === "Residual") {
+            console.log("not a word");
+            return;
+        }
+        else {
+            var length = wordString.length;
+            switch(length) {
+                case 2:
+                    score += 10;
+                    console.log(score);
+                    break;
+                case 3:
+                    score += 25;
+                    console.log(score);
+                    break;
+                case 4:
+                    score += 100;
+                    console.log(score);
+                    break;
+                case 5:
+                    score += 150;
+                    console.log(score);
+                    break;
+                case 6:
+                    score += 200;
+                    console.log(score);
+                    break;
+            }
+        }
+    });
 }
+
+function decrement() {
+    number--;
+    $("#timer").html("<p>Time Remaining: " + number + "</p>");
+
+    if (number === 0) {
+        clearInterval(intervalId);
+        $("#timer").html("<p>Time's Up!</p>");
+        $(canvas).hide();
+    }
+
+
+}
+
 
 //MAIN PROCESS =================================
 // var then = Date.now();
@@ -241,11 +288,11 @@ canvas.addEventListener('mousemove', function(evt) {
 
 canvas.addEventListener("mousedown", function() {
     mouseDown = true;
-    console.log(mouseDown);
+    // console.log(mouseDown);
 });
 
 canvas.addEventListener("mouseup", function() {
     mouseDown = false;
     getWord();
-    console.log(mouseDown);
+    // console.log(mouseDown);
 });

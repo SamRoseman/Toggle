@@ -186,6 +186,8 @@ function loop() {
         letterReady = true;
     };
     letter.image.src = "assets/images/" + alphabet[letter.random] + ".png";
+    letter.image.inactive = "assets/images/" + alphabet[letter.random] + ".png";
+    letter.image.active = "assets/images/" + alphabet[letter.random] + "-active.png";
     i++;
 }
 
@@ -212,7 +214,7 @@ function getLetter() {
 //compiles letters into a word
 function getWord() {
     var wordString = word.toString().replace(/,/g, "").toLowerCase();
-console.log(wordString);
+    console.log(wordString);
     word = [];
     if (allWords.indexOf(wordString) === -1) {
         allWords.push(wordString);
@@ -276,8 +278,7 @@ console.log(wordString);
 }
 
 
-function findLong()
-{
+function findLong() {
   longWord = allWords[0];
   for (var i = 1; i < allWords.length; i++)
   {
@@ -320,6 +321,22 @@ function decrement() {
         });
     }
 }
+
+function activeLetter() {
+    for (var i = 0; i < letters.length; i++) {
+        if (mousePosX >= letters[i].x + 5 && mousePosX <= letters[i].x + 95 && mousePosY >= letters[i].y + 5 && mousePosY <= letters[i].y + 95) {
+            if (mouseDown) {
+                letters[i].image.src = letters[i].image.active;
+            }
+            else {
+                for (var i = 0; i < letters.length; i++) {
+                    letters[i].image.src = letters[i].image.inactive;
+                }
+            }
+        }
+    }
+}
+
 //MAIN PROCESS =================================
 loop();
 main();
@@ -330,6 +347,7 @@ canvas.addEventListener("mousemove", function(evt) {
         mousePosX = mousePos.x;
         mousePosY = mousePos.y;
         getLetter();
+        activeLetter();
     }
 }, false);
 
@@ -340,4 +358,5 @@ canvas.addEventListener("mousedown", function() {
 canvas.addEventListener("mouseup", function() {
     mouseDown = false;
     getWord();
+    activeLetter();
 });

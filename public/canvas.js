@@ -217,13 +217,14 @@ function getWord() {
     console.log(wordString);
     word = [];
     if (allWords.indexOf(wordString) === -1) {
-        allWords.push(wordString);
+
 
         $.get("/api/checkWord/" + wordString, function(data) {
             if (data === "No such entry found" || data === "Residual") {
                 return;
             }
             else {
+                allWords.push(wordString);
                 var length = wordString.length;
                 switch(length) {
                     case 2:
@@ -318,19 +319,28 @@ function decrement() {
           {
             for (var i = 0; i < data.length; i++)
             {
-              console.log(data[i].User.name);
-              console.log(data[i].score);
+              $("#leaderboardScore").append(
+              "<span>Name:</span>"+
+              "<span>"+" "+data[i].User.name+"</span>"+
+              "<br>"+
+              "<span>LONGEST WORD:</span>"+
+              "<span>"+" "+data[i].score+"</span>"+
+              "<br>"+"<hr>");
             }
           });
 
           //updates leaderboard with new long words.
           $.get("/api/long", function(data)
           {
-            console.log(data);
             for (var i = 0; i < data.length; i++)
             {
-              console.log(data[i].User.name);
-              console.log(data[i].word);
+              $("#leaderboardWord").append(
+              "<span>Name:</span>"+
+              "<span>"+" "+data[i].User.name+"</span>"+
+              "<br>"+
+              "<span>LONGEST WORD:</span>"+
+              "<span>"+" "+data[i].word+"</span>"+
+              "<br>"+"<hr>");
             }
           });
         });

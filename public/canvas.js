@@ -9,6 +9,7 @@ var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
 "T", "U", "V", "W", "X", "Y", "Z"];
 var letters = [];
 var word = [];
+var allWords = [];
 var i = 0;
 var randyCounter = 4;
 var bgReady = false;
@@ -17,9 +18,10 @@ var bgImage = new Image();
 var xCor = [10, 130, 250, 370];
 var randy = 2;
 var mouseDown = false;
-    console.log(mouseDown);
 var mousePosX;
 var mousePosY;
+var score = 0;
+var number = 90;
 var Letter = function()
 {
     this.random = Math.floor(Math.random()* 26);
@@ -31,14 +33,8 @@ var Letter = function()
 
 }
 var letter;
-
-var keysDownCurrent = {
-
-};
-
-var keysDownPrevious = {
-
-};
+var keysDownCurrent = {};
+var keysDownPrevious = {};
 
 addEventListener("keydown", function (e) {
 	keysDownCurrent[e.keyCode] = true;
@@ -56,8 +52,7 @@ bgImage.src = "assets/images/smoke.jpg";
 
 
 //looks for stacking
-function colFilled(col)
-{
+function colFilled(col) {
     var counter = 0;
     for (var i = 0; i < letters.length; i++)
     {
@@ -87,8 +82,7 @@ function colFilled(col)
 }
 
 //returns true if there is a letter that should block current letter.
-function collisionRight()
-{
+function collisionRight() {
   if(colFilled(letter.x+120)+5 < letter.y)
   {
     return true;
@@ -99,8 +93,8 @@ function collisionRight()
   }
 }
 
-function collisionLeft()
-{
+//returns true if there is a letter that should block current letter.
+function collisionLeft() {
   if(colFilled(letter.x-120)+5 < letter.y)
   {
     return true;
@@ -112,8 +106,7 @@ function collisionLeft()
 }
 
 //elimanates full column from possible spawn point
-function randyFunk()
-{
+function randyFunk() {
   if(randyCounter < 0)
   {
     return;
@@ -130,23 +123,18 @@ function randyFunk()
   randy = Math.floor(Math.random()*randyCounter);
 }
 
-// The main game loop
+//the main game loop
 var main = function () {
-
-// var now = Date.now();
-// var delta = now - then;
 	render();
-// update(delta / 1000);
     update();
-	// Request to do this again ASAP
 	requestAnimationFrame(main);
 };
 
-var update = function()
-{
+//controls tetris style movement of letter blocks as they fall
+var update = function() {
     if (letter.y < colFilled(letter.x) && !letter.isStopped)
     {
-        letter.y += 5;
+        letter.y += 10;
 
         if (keysDownCurrent[37] && !keysDownPrevious[37] && letter.x > 10 && !collisionLeft()) {
             letter.x -= 120;
@@ -168,7 +156,7 @@ var update = function()
     keysDownPrevious = Object.assign({}, keysDownCurrent);
 };
 
-// Draw everything
+//draw everything
 var render = function () {
 	if (bgReady) {
 		ctx.drawImage(bgImage, 0, 0);
@@ -181,10 +169,13 @@ var render = function () {
   }
 }
 
-function loop()
-{
+//drops letters until boggle board is full
+function loop() {
     if(i === 16) {
-        console.log(letters);
+        $("#timer").html("<p>Time Remaining: 90</p>");
+        $("#score").html("<p>Score: 0</p>");
+        intervalId = setInterval(decrement, 1000);
+        //console.log(letters);
         return;
     }
     letter = new Letter();
@@ -197,6 +188,7 @@ function loop()
     i++;
 }
 
+//gets the position of the mouse within the canvas
 function getMousePos(canvas, evt) {
   var rect = canvas.getBoundingClientRect();
   return {
@@ -205,6 +197,7 @@ function getMousePos(canvas, evt) {
   };
 }
 
+//gets the letters that the user selects for the current word
 function getLetter() {
     for (var i = 0; i < letters.length; i++) {
         if (mousePosX >= letters[i].x + 5 && mousePosX <= letters[i].x + 95 && mousePosY >= letters[i].y + 5 && mousePosY <= letters[i].y + 95) {
@@ -215,38 +208,103 @@ function getLetter() {
     }
 }
 
+//compiles letters into a word
 function getWord() {
-    console.log(word);
     var wordString = word.toString().replace(/,/g, "").toLowerCase();
-    console.log(wordString);
     word = [];
+    if (allWords.indexOf(wordString) === -1) {
+        allWords.push(wordString);
+
+        $.get("/api/checkWord/" + wordString, function(data) {
+            if (data === "No such entry found" || data === "Residual") {
+                return;
+            }
+            else {
+                var length = wordString.length;
+                switch(length) {
+                    case 2:
+                        score += 10;
+                        break;
+                    case 3:
+                        score += 25;
+                        break;
+                    case 4:
+                        score += 100;
+                        break;
+                    case 5:
+                        score += 150;
+                        break;
+                    case 6:
+                        score += 200;
+                        break;
+                    case 7:
+                        score += 250;
+                        break;
+                    case 8:
+                        score += 300;
+                        break;
+                    case 9:
+                        score += 375;
+                        break;
+                    case 10:
+                        score += 450;
+                        break;
+                    case 11:
+                        score += 550;
+                        break;
+                    case 12:
+                        score += 650;
+                        break;
+                    case 13:
+                        score += 800;
+                        break;
+                    case 14:
+                        score += 900;
+                        break;
+                    case 15:
+                        score += 1000;
+                        break;
+                    case 16:
+                        score += 2000;
+                        break;
+                }
+            }
+        });
+    }
 }
 
+//controlls the timer for the boggle portion of the game
+function decrement() {
+    number--;
+    $("#timer").html("<p>Time Remaining: " + number + "</p>");
+    $("#score").html("<p>Score: " + score + "</p>");
+
+    if (number === 0) {
+        clearInterval(intervalId);
+        $("#timer").html("<p>Time's Up!</p>");
+        $(canvas).hide();
+    }
+
+
+}
 //MAIN PROCESS =================================
-// var then = Date.now();
 loop();
 main();
 
-
-
-canvas.addEventListener('mousemove', function(evt) {
+canvas.addEventListener("mousemove", function(evt) {
     if (mouseDown) {
         var mousePos = getMousePos(canvas, evt);
         mousePosX = mousePos.x;
         mousePosY = mousePos.y;
-        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
         getLetter();
     }
 }, false);
 
-
 canvas.addEventListener("mousedown", function() {
     mouseDown = true;
-    console.log(mouseDown);
 });
 
 canvas.addEventListener("mouseup", function() {
     mouseDown = false;
     getWord();
-    console.log(mouseDown);
 });

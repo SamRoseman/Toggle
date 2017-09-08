@@ -95,7 +95,7 @@ router.post("/api/addUserFb", function(req, res)
     }
   }).then(function(results)
   {
-    console.log(results.length);
+    console.log(results);
    if(results.length === 0)
     {
       db.User.create({
@@ -103,7 +103,7 @@ router.post("/api/addUserFb", function(req, res)
         fbId: req.body.id
       }).then(function(results)
       {
-        res.redirect("/");
+        res.send(results);
       });
     }
     else

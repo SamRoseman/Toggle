@@ -129,7 +129,7 @@ var main = function () {
 var update = function() {
     if (letter.y < colFilled(letter.x) && !letter.isStopped)
     {
-        letter.y += 10;
+        letter.y += 5;
 
         if (keysDownCurrent[37] && !keysDownPrevious[37] && letter.x > 10 && !collisionLeft()) {
             letter.x -= 120;

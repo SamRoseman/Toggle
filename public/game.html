@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <title>Toggle</title>
+  <title>Toggle</title>
 </head>
-    <body>
 
-    <div class="container-fluid">
+<body>
+
+  <div class="container-fluid">
     <div class="row">
 
       <div class="col-md-2" id="left">
@@ -26,67 +28,33 @@
         <div id="timer"></div>
         <div id="score"></div>
       </div>
-    
-    <div class="col-md-5" id="center">
+
+      <div class="col-md-5" id="center">
+
+      </div>
+
+      <div class="col-md-1">
+      </div>
+
+
+      <div class="col-md-4">
+        <div class="col-md-12 holder">
+          <h2>HIGHEST SCORES</h2>
+          <div id="leaderboardScore"></div>
+        </div>
+
+
+        <div class="col-md-12 bolder">
+          <h2>LONGEST WORDS</h2>
+          <div id="leaderboardWord"></div>
+        </div>
+      </div>
 
     </div>
 
-<div class="col-md-1">
-</div>
+  </div>
+  <script src="canvas.js"></script>
 
+</body>
 
-<div class="col-md-4">
-    <div class="col-md-12 holder">
-        <h2>HIGHEST SCORE</h2>
-        <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>SCORE:</span> <span id="scoreholder"></span><br />
-        <hr>
-         <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>SCORE:</span> <span id="scoreholder"></span><br />
-        <hr>
-         <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>SCORE:</span> <span id="scoreholder"></span><br />
-        <hr>
-         <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>SCORE:</span> <span id="scoreholder"></span><br />
-        <hr>
-         <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>SCORE:</span> <span id="scoreholder"></span><br />
-    </div>
-
-
-    <div class="col-md-12 bolder">
-        <h2>LONGEST WORD</h2>
-        <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>LONGEST WORD:</span> <span id="wordholder"></span><br />
-        <hr>
-        <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>LONGEST WORD:</span> <span id="wordholder"></span><br />
-        <hr>
-        <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>LONGEST WORD:</span> <span id="wordholder"></span><br />
-        <hr>
-        <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>LONGEST WORD:</span> <span id="wordholder"></span><br />
-        <hr>
-        <span>NAME:</span> <span id="nameholder"></span><br />
-        <span>LONGEST WORD:</span> <span id="wordholder"></span><br />
-    </div>
-</div>
-    
-    </div>
-
-    </div>
-
-
-
-
-      
-      <!-- temp link until we restructure html pages. -->
-
-    <!-- <a href="/loginTest.html">login</a> -->
-
-    <script src="canvas.js"></script>
-
-    </body>
 </html>

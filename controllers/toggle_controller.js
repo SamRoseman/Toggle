@@ -62,10 +62,11 @@ router.get("/api/highScore", function(req, res)
   db.Score.findAll({
     include: [db.User],
     order: sequelize.literal("score DESC"),
-    limit: 10
+    limit: 5
   }).then(function(results)
   {
-    console.log(results);
+    //console.log(results);
+    res.json(results);
   });
 });
 
@@ -75,7 +76,7 @@ router.get("/api/long", function(req, res)
   db.Score.findAll({
     include: [db.User],
     order: sequelize.literal("length(word) DESC"),
-    limit: 10
+    limit: 5
   }).then(function(results)
   {
     res.json(results);

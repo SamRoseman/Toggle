@@ -315,7 +315,7 @@ function decrement() {
               "<span>Name:</span>"+
               "<span>"+" "+data[i].User.name+"</span>"+
               "<br>"+
-              "<span>LONGEST WORD:</span>"+
+              "<span>SCORE:</span>"+
               "<span>"+" "+data[i].score+"</span>"+
               "<br>"+"<hr>");
             }

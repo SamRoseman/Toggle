@@ -22,7 +22,7 @@ var mouseDown = false;
 var mousePosX;
 var mousePosY;
 var score = 0;
-var number = 10;
+var number = 90;
 var Letter = function()
 {
     this.random = Math.floor(Math.random()* 26);
@@ -36,6 +36,7 @@ var Letter = function()
 var letter;
 var keysDownCurrent = {};
 var keysDownPrevious = {};
+var preLoadCount = 0;
 
 addEventListener("keydown", function (e) {
 	keysDownCurrent[e.keyCode] = true;
@@ -45,13 +46,6 @@ addEventListener("keyup", function(e) {
     keysDownCurrent[e.keyCode] = false;
 });
 //FUNCTIONS ====================================
-
-bgImage.onload = function() {
-    bgReady = true;
-};
-bgImage.src = "assets/images/smoke.jpg";
-
-
 //looks for stacking
 function colFilled(col) {
     var counter = 0;
@@ -214,7 +208,7 @@ function getLetter() {
 //compiles letters into a word
 function getWord() {
     var wordString = word.toString().replace(/,/g, "").toLowerCase();
-    console.log(wordString);
+    //console.log(wordString);
     word = [];
     if (allWords.indexOf(wordString) === -1) {
 
@@ -278,7 +272,7 @@ function getWord() {
     }
 }
 
-
+//looks through the words creating during the current game and finds the longest word
 function findLong() {
   longWord = allWords[0];
   for (var i = 1; i < allWords.length; i++)
@@ -290,9 +284,7 @@ function findLong() {
   }
 }
 
-
 //controlls the timer for the boggle portion of the game
-
 function decrement() {
     number--;
     $("#timer").html("<p>Time Remaining: " + number + "</p>");
@@ -311,7 +303,7 @@ function decrement() {
           userId: userId
         };
 
-        console.log(scores);
+        //console.log(scores);
         $.post("/api/addScore", scores).done(function(data)
         {
           //to update leaderboard with new score
@@ -347,6 +339,7 @@ function decrement() {
     }
 }
 
+//highlights the active letters during game play
 function activeLetter() {
     for (var i = 0; i < letters.length; i++) {
         if (mousePosX >= letters[i].x + 5 && mousePosX <= letters[i].x + 95 && mousePosY >= letters[i].y + 5 && mousePosY <= letters[i].y + 95) {
@@ -362,38 +355,68 @@ function activeLetter() {
     }
 }
 
+//preload
+function preLoad() {
+    for (var i = 0; i < alphabet.length; i++) {
+        var x = new Image();
+        x.src = "assets/images/" + alphabet[i] + ".png";
+        x.onload = function () {
+            preLoadCount++;
+            //console.log(preLoadCount);
+        }
+        var y = new Image();
+        y.src = "assets/images/" + alphabet[i] + "-active.png";
+        y.onload = function() {
+            preLoadCount++;
+            //console.log(preLoadCount);
+        }
+    }
+    startGame();
+}
+
+//start game
+function startGame() {
+    loop();
+    main();
+
+    bgImage.onload = function() {
+        bgReady = true;
+    };
+
+    bgImage.src = "assets/images/smoke.jpg";
+
+    //leaderboard code
+    $.get("/api/highScore", function(data)
+    {
+      for (var i = 0; i < data.length; i++)
+      {
+        $("#leaderboardScore").append(
+        "<span>Name:</span>"+
+        "<span>"+" "+data[i].User.name+"</span>"+
+        "<br>"+
+        "<span>LONGEST WORD:</span>"+
+        "<span>"+" "+data[i].score+"</span>"+
+        "<br>"+"<hr>");
+      }
+    });
+
+    $.get("/api/long", function(data)
+    {
+      for (var i = 0; i < data.length; i++)
+      {
+        $("#leaderboardWord").append(
+        "<span>Name:</span>"+
+        "<span>"+" "+data[i].User.name+"</span>"+
+        "<br>"+
+        "<span>LONGEST WORD:</span>"+
+        "<span>"+" "+data[i].word+"</span>"+
+        "<br>"+"<hr>");
+      }
+    });
+}
+
 //MAIN PROCESS =================================
-//leaderboard code
-$.get("/api/highScore", function(data)
-{
-  for (var i = 0; i < data.length; i++)
-  {
-    $("#leaderboardScore").append(
-    "<span>Name:</span>"+
-    "<span>"+" "+data[i].User.name+"</span>"+
-    "<br>"+
-    "<span>LONGEST WORD:</span>"+
-    "<span>"+" "+data[i].score+"</span>"+
-    "<br>"+"<hr>");
-  }
-});
-
-$.get("/api/long", function(data)
-{
-  for (var i = 0; i < data.length; i++)
-  {
-    $("#leaderboardWord").append(
-    "<span>Name:</span>"+
-    "<span>"+" "+data[i].User.name+"</span>"+
-    "<br>"+
-    "<span>LONGEST WORD:</span>"+
-    "<span>"+" "+data[i].word+"</span>"+
-    "<br>"+"<hr>");
-  }
-});
-
-loop();
-main();
+preLoad();
 
 canvas.addEventListener("mousemove", function(evt) {
     if (mouseDown) {

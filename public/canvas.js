@@ -363,6 +363,35 @@ function activeLetter() {
 }
 
 //MAIN PROCESS =================================
+//leaderboard code
+$.get("/api/highScore", function(data)
+{
+  for (var i = 0; i < data.length; i++)
+  {
+    $("#leaderboardScore").append(
+    "<span>Name:</span>"+
+    "<span>"+" "+data[i].User.name+"</span>"+
+    "<br>"+
+    "<span>LONGEST WORD:</span>"+
+    "<span>"+" "+data[i].score+"</span>"+
+    "<br>"+"<hr>");
+  }
+});
+
+$.get("/api/long", function(data)
+{
+  for (var i = 0; i < data.length; i++)
+  {
+    $("#leaderboardWord").append(
+    "<span>Name:</span>"+
+    "<span>"+" "+data[i].User.name+"</span>"+
+    "<br>"+
+    "<span>LONGEST WORD:</span>"+
+    "<span>"+" "+data[i].word+"</span>"+
+    "<br>"+"<hr>");
+  }
+});
+
 loop();
 main();
 

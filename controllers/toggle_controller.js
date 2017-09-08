@@ -91,13 +91,14 @@ router.post("/api/addUserFb", function(req, res)
   console.log(req.body);
   db.User.findAll({
     where: {
-      fbId: req.body.fbId
+      fbId: req.body.id
     }
   }).then(function(results)
   {
     console.log(results);
    if(results.length === 0)
     {
+      console.log(req.body.id);
       db.User.create({
         name: req.body.name,
         fbId: req.body.id
@@ -109,7 +110,7 @@ router.post("/api/addUserFb", function(req, res)
     else
     {
       console.log("user already exists");
-      res.end();
+      res.send(results);
     }
   });
 });

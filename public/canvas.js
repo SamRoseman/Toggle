@@ -307,8 +307,10 @@ function decrement() {
         $.post("/api/addScore", scores).done(function(data)
         {
           //to update leaderboard with new score
+
           $.get("/api/highScore", function(data)
           {
+            $("#leaderboardScore").empty();
             for (var i = 0; i < data.length; i++)
             {
               $("#leaderboardScore").append(
@@ -324,6 +326,7 @@ function decrement() {
           //updates leaderboard with new long words.
           $.get("/api/long", function(data)
           {
+            $("#leaderboardWord").empty();
             for (var i = 0; i < data.length; i++)
             {
               $("#leaderboardWord").append(
